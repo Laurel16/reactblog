@@ -4,9 +4,12 @@ export const POST_CREATED = 'POST_CREATED';
 
 export function createPost(body, callback) {
 
+
+const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
+
   const request = fetch("/api/v1/posts", {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json'},
+    headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken},
     body: JSON.stringify(body)
   }).then(response => response.json())
     .then(callback);
